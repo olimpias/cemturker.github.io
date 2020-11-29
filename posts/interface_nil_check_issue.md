@@ -1,9 +1,9 @@
-## Interface Nil Check Issue in GO
-
-I have been programming in Go for 4 years and recently I came across with an interesting problem.
+## Interface Nil Check Issue in Go
+_29 November 2020_
 
 My interface nil check was not working even the interface was nil. It took some time for me to understand underlying issue, and it
-turns out that when you return a struct pointer as a nil from a method, it does not actual nil for an interface value assignment even struct implements all methods of the interface
+turns out that when you return a struct pointer as a nil from a method, it does not actual nil for an interface value assignment even 
+the struct implements all methods of the interface
 
 **Here example:**
 
@@ -24,7 +24,7 @@ func (rs *ReaderStruct) NewReaderBlabla() (*ReaderStruct, error) {
 }
 ```
 
-This is the method that uses `ReaderTest` interface as a property
+This is the struct that uses `ReaderTest` interface as a property
 ```go
 type AnotherStructEncapsulator struct {
 	r ReaderTest
@@ -47,7 +47,9 @@ func main() {
 ```
 
 When you run the above main, you will realize that `ase.r == nil` will return false. The reason is that `rsDummy.NewReaderBlabla()` method
-returns nil  in a `&ReaderStruct(nil)` structure where its not nil for the `ReaderTest` interface in `AnotherStructEncapsulator`. 
+returns nil  in a `&ReaderStruct(nil)` structure where its not nil for the `ReaderTest` interface in `AnotherStructEncapsulator`. In other word,
+nil was in a type of `*ReaderStruct` not in `ReaderTest`. 
+ 
 To prevent this problem to happen again, we should return interface itself instead of `*ReaderStruct` for `NewReaderBlabla` method.
 
 So method should be written like
