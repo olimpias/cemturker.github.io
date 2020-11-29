@@ -64,7 +64,7 @@ func (rs *ReaderStruct) NewReaderBlabla() (ReaderTest, error) {
 
 This problem caused an issue that one of services that I wrote to panic in run time.
 
-Lesson has learnt :)
+Lesson learnt :)
 
 
 GoPlayground Link: https://play.golang.org/p/hJ6KyfSjh0P
